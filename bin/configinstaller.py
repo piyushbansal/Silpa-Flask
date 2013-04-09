@@ -7,12 +7,16 @@ class _InstallModules:
         _config = RawConfigParser()
         _config.read(os.path.join(os.path.dirname(__file__), '../silpa.conf'))
 
+        _configmodule = RawConfigParser()
+        _configmodule.read(os.path.join(os.path.dirname(__file__), '../modules.conf'))
+
+
         self.modules = {}
         for module, status in _config.items('modules'):
             self.modules[module] = status if status else "no"
 
         self.modules_gitnames = {}
-        for module, name in _config.items('module_gitnames'):
+        for module, name in _configmodule.items('module_gitnames'):
 	    if self.modules[module] == "yes":
             	self.modules_gitnames[module] = name
 
